@@ -1,0 +1,44 @@
+###
+POST http://localhost:8080/auth/signup
+Content-Type: application/json
+
+{
+  "username": "wkdgothf@gmail.com",
+  "password": "haesol2",
+  "lastName": "장",
+  "firstName": "해솔",
+  "nickName": "ssols",
+  "phoneNum": "01049380425",
+  "gender": "1"
+}
+
+###
+POST http://localhost:8080/mail/check
+Content-Type: application/json
+
+{
+  "authMail": "wndn@gmail.com",
+  "key": "WLE8437"
+}
+
+###
+//로그인
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "username": "wkdgothf@gmail.com",
+  "password": "haesol2"
+}
+
+###
+PUT http://localhost:8080/user/assign/department
+Content-Type: application/json
+
+{
+"userId": 1,
+"departmentDto": {
+"departmentId": 1,
+"departmentName":"아이크림개발"
+}
+}
