@@ -8,7 +8,6 @@ const Signout =({isAuthenticated, setIsAuthenticated})=>{
 
     useEffect(()=>{
         removeCookie('userName');
-        removeCookie('accessToken');
         setIsAuthenticated(false);
         navigate("/");
     },[navigate, setIsAuthenticated])

@@ -8,6 +8,7 @@ import {useEffect, useState} from "react";
 import Header from "./header/Header";
 import Signin from "./components/Signin";
 import Signout from "./components/Signout";
+import Signup from "./components/Signup";
 const App =()=>{
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -23,6 +24,7 @@ const App =()=>{
                 <Routes>
                         <Route  path="/signin" element={<Signin isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />} />
                         <Route  path="/signout" element={<Signout isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />} />
+                        <Route  path="/signup" element={<Signup isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />} />
                 </Routes>
             </div>
     );

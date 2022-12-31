@@ -1,15 +1,16 @@
 import React, {useEffect, useState} from "react";
-import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
 import {useCookies} from "react-cookie";
 
-const Signin = ({isAuthenticated, setIsAuthenticated}) => {
 
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+const Signup = ({isAuthenticated, setIsAuthenticated}) => {
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+    const [nickname, setNickname] = useState('');
+    const [cookies, setCookie] = useCookies(['userName', 'accessToken']);
     const [message, setMessage] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
-    const [cookies, setCookie] = useCookies(['userName']);
+    const [errorMessage, setErrorMessage] = useState('')
     let navigate = useNavigate();
 
     const timeout = (delay) => {
@@ -18,16 +19,14 @@ const Signin = ({isAuthenticated, setIsAuthenticated}) => {
 
     const onSubmit = async (e) => {
         e.preventDefault();
-
         try {
-            const response = await axios.post('http://localhost:3000/api/auth/signin', {username, password})
-                .then((response)=>{
-                    setCookie('userName', response.data.userName)
-                })
+            const response = await axios.post('http://localhost:3000/api/auth/signup', {username, password, nickname})
+                .then((response) => {
+                    console.log(response.data)
+                    setCookie('userName', response.data.username)
+                    setIsAuthenticated(true);
+                });
 
-            // sessionStorage.setItem('accessToken', response.data.accessToken);
-            // sessionStorage.setItem('userName', response.data.userName);
-            setIsAuthenticated(true)
         } catch (error) {
             setMessage('');
             if (error.response) {
@@ -38,21 +37,21 @@ const Signin = ({isAuthenticated, setIsAuthenticated}) => {
             setIsAuthenticated(false);
             return;
         }
-
         setUsername('');
         setPassword('');
+        setNickname('');
         setErrorMessage('');
-        setMessage('Sign in successful');
+        setMessage('Sign up successful');
         await timeout(1000);
         navigate("/");
     }
 
-    useEffect(() => {
+    useEffect(()=>{
         setMessage('')
-    }, [username, password])
+    },[username, password, nickname])
 
     const showMessage = () => {
-        if (message === '') {
+        if(message === ''){
             return <div></div>
         }
         return <div className="alert alert-success" role="alert">
@@ -61,7 +60,7 @@ const Signin = ({isAuthenticated, setIsAuthenticated}) => {
     }
 
     const showErrorMessage = () => {
-        if (errorMessage === '') {
+        if(errorMessage === ''){
             return <div></div>
         }
 
@@ -73,13 +72,13 @@ const Signin = ({isAuthenticated, setIsAuthenticated}) => {
     return (
         <div className="container">
             <form onSubmit={onSubmit}>
-                <h1>Sign In</h1>
+                <h1>Sign Up</h1>
                 <div className="form-group">
                     <label>Username</label>
                     <input
                         value={username}
                         onChange={e => setUsername(e.target.value)}
-                        placeholder="Username"
+                        placeholder="아이디를 입력해주세요"
                         className="form-control">
                     </input>
                 </div>
@@ -89,11 +88,20 @@ const Signin = ({isAuthenticated, setIsAuthenticated}) => {
                         value={password}
                         type="password"
                         onChange={e => setPassword(e.target.value)}
-                        placeholder="Password"
+                        placeholder="비밀번호를 입력해주세요."
                         className="form-control">
                     </input>
                 </div>
-                <button className="btn btn-primary">Sign In</button>
+                <div className="form-group">
+                    <label>NickName</label>
+                    <input
+                        value={nickname}
+                        onChange={e => setNickname(e.target.value)}
+                        placeholder="닉네임을 입력해주세요."
+                        className="form-control">
+                    </input>
+                </div>
+                <button className="btn btn-primary">Sign Up</button>
             </form>
             {showMessage()}
             {showErrorMessage()}
@@ -101,4 +109,4 @@ const Signin = ({isAuthenticated, setIsAuthenticated}) => {
     )
 }
 
-export default Signin
+export default Signup;
