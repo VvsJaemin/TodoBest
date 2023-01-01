@@ -1,17 +1,20 @@
 
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import {useCookies} from "react-cookie";
 
 function Header({isAuthenticated, setIsAuthenticated}) {
     const [cookies, setCookie] = useCookies(['userName']);
-
     useEffect(() => {
         try {
-            if (cookies.userName !== null) {
+            const userName = cookies.userName;
+            console.log(userName)
+            if (cookies.userName != null) {
                 setIsAuthenticated(true);
                 // console.log("로그인: " + loginCheck);
                 // console.log("token: " + localStorage.getItem("token"));
+                console.log(isAuthenticated)
+
             } else {
                 setIsAuthenticated(false);
                 // fetchData();
@@ -19,7 +22,7 @@ function Header({isAuthenticated, setIsAuthenticated}) {
         } catch (error) {
             console.log("error:");
         }
-    }, [setIsAuthenticated]);
+    }, [isAuthenticated]);
 
     return (
         <header>
