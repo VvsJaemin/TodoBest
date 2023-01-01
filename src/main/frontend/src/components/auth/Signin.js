@@ -1,7 +1,10 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useCookies} from "react-cookie";
+import {Button} from "react-bootstrap";
+import KakaoLogin from "react-kakao-login";
+import {KAKAO_AUTH_URL} from "../../constatnts/Constants";
 
 const Signin = ({isAuthenticated, setIsAuthenticated}) => {
 
@@ -97,6 +100,9 @@ const Signin = ({isAuthenticated, setIsAuthenticated}) => {
             </form>
             {showMessage()}
             {showErrorMessage()}
+            <div>
+                <Button href={KAKAO_AUTH_URL}>
+                    카카오톡으로 가입하기</Button>    </div>
         </div>
     )
 }
