@@ -4,20 +4,20 @@ import { Link } from 'react-router-dom';
 import {useCookies} from "react-cookie";
 
 function Header({isAuthenticated, setIsAuthenticated}) {
-    const [cookies, setCookie] = useCookies(['userName']);
+    const [cookies, setCookie] = useCookies(['userName', 'accessToken']);
     useEffect(() => {
         try {
             const userName = cookies.userName;
+            const accessToken = cookies.accessToken;
+            console.log(accessToken)
             console.log(userName)
-            if (cookies.userName != null) {
-                setIsAuthenticated(true);
-                // console.log("로그인: " + loginCheck);
-                // console.log("token: " + localStorage.getItem("token"));
-                console.log(isAuthenticated)
 
+            if (userName != null || localStorage.getItem("accessToken") !=null) {
+                setIsAuthenticated(true);
+                console.log("로그인  성공: " + accessToken);
+                console.log(isAuthenticated)
             } else {
-                setIsAuthenticated(false);
-                // fetchData();
+                setIsAuthenticated(false)// fetchData();
             }
         } catch (error) {
             console.log("error:");

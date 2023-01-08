@@ -10,11 +10,13 @@ import Signin from "./components/auth/Signin";
 import Signout from "./components/auth/Signout";
 import Signup from "./components/auth/Signup";
 import Oauth2RedirectHandler from "./components/auth/Oauth2RedirectHandler";
+import {useCookies} from "react-cookie";
 const App =()=>{
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [cookies, setCookie] = useCookies(['accessToken']);
 
     useEffect(()=>{
-        if (sessionStorage.getItem("token") !== null) {
+        if (cookies.accessToken !== null) {
             setIsAuthenticated(true);
         }
     },[])
@@ -23,7 +25,7 @@ const App =()=>{
             <div className="App">
                 <Header isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
                 <Routes>
-                        <Route  path="/signin" element={<Signin isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />} />
+                        <Route  path="/signin" element={<Signin isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} /> }  />
                         <Route  path="/signout" element={<Signout isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />} />
                         <Route  path="/signup" element={<Signup isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />} />
                         <Route  path="/oauth2/redirect?/:token" element={<Oauth2RedirectHandler isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />} />

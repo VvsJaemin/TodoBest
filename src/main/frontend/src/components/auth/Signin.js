@@ -3,10 +3,33 @@ import axios from "axios";
 import {Link, useNavigate} from "react-router-dom";
 import {useCookies} from "react-cookie";
 import {Button} from "react-bootstrap";
-import KakaoLogin from "react-kakao-login";
+import kakaoLogo from '../../img/kakao-logo.png';
 import {KAKAO_AUTH_URL} from "../../constatnts/Constants";
 
 const Signin = ({isAuthenticated, setIsAuthenticated}) => {
+
+    return (
+        <div className="login-container">
+            <div className="login-container">
+                <div className="login-content">
+                    <h3 className="login-title">Sign In</h3>
+                    <SocialLogin />
+                    <LoginForm isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
+                    {/*<span className="signup-link">New user? <Link to="/signup">Sign up!</Link></span>*/}
+                </div>
+            </div>
+        </div>)
+
+}
+
+const SocialLogin = () => {
+
+    return (
+        <Button href={KAKAO_AUTH_URL}> 카카오</Button>
+    )
+}
+
+const LoginForm = ({isAuthenticated, setIsAuthenticated}) => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -24,7 +47,7 @@ const Signin = ({isAuthenticated, setIsAuthenticated}) => {
 
         try {
             const response = await axios.post('http://localhost:3000/api/auth/signin', {username, password})
-                .then((response)=>{
+                .then((response) => {
                     setCookie('userName', response.data.userName)
                 })
 
@@ -73,8 +96,7 @@ const Signin = ({isAuthenticated, setIsAuthenticated}) => {
         </div>
     }
 
-    return (
-        <div className="container">
+    return (<div className="container">
             <form onSubmit={onSubmit}>
                 <h1>Sign In</h1>
                 <div className="form-group">
@@ -100,11 +122,8 @@ const Signin = ({isAuthenticated, setIsAuthenticated}) => {
             </form>
             {showMessage()}
             {showErrorMessage()}
-            <div>
-                <Button href={KAKAO_AUTH_URL}>
-                    카카오톡으로 가입하기</Button>    </div>
-        </div>
-    )
-}
 
+
+        </div>)
+}
 export default Signin
