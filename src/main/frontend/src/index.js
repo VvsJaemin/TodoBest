@@ -6,17 +6,19 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
 import {CookiesProvider} from "react-cookie";
 import {RecoilRoot} from "recoil";
+import {Provider} from "react-cookie/es6/CookiesContext";
+import store from "./store/store";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
+        <Provider store={store}>
         <CookiesProvider>
-            <RecoilRoot>
                 <BrowserRouter>
                     <App/>
                 </BrowserRouter>
-            </RecoilRoot>
         </CookiesProvider>
+        </Provider>
     </React.StrictMode>
 );
 

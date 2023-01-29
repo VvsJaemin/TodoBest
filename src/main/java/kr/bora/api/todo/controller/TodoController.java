@@ -22,7 +22,7 @@ import java.util.List;
 
 @Api(tags = {"2. Todo"})
 @RestController
-@RequestMapping("/todos")
+@RequestMapping("/api")
 @RequiredArgsConstructor
 public class TodoController {
 
@@ -35,7 +35,7 @@ public class TodoController {
      * @return
      */
     @ApiOperation(value = "Todo 리스트", notes = "Todo 리스트를 보여줍니다.")
-    @GetMapping("/list/pages")
+    @GetMapping("/todo/list")
     public ResponseEntity<PageResultDto<TodoDto, Object[]>> todoList(PageRequestDto pageRequestDto) {
         return ResponseEntity.ok(service.todoList(pageRequestDto));
     }

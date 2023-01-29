@@ -22,7 +22,6 @@ const Oauth2RedirectHandler = ({isAuthenticated, setIsAuthenticated}) => {
     useEffect(() => {
         const token = getUrlParameter('token');
         console.log("token ===", token)
-        localStorage.setItem("accessToken", token)
         setCookie('accessToken', token);
         setIsAuthenticated(true)
         navigate("/");

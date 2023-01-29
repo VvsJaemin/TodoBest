@@ -12,12 +12,13 @@ function Header({isAuthenticated, setIsAuthenticated}) {
             console.log(accessToken)
             console.log(userName)
 
-            if (userName != null || localStorage.getItem("accessToken") !=null) {
+            if (userName != null || accessToken !=null) {
                 setIsAuthenticated(true);
                 console.log("로그인  성공: " + accessToken);
                 console.log(isAuthenticated)
             } else {
-                setIsAuthenticated(false)// fetchData();
+                setIsAuthenticated(false);
+                // fetchData();
             }
         } catch (error) {
             console.log("error:");

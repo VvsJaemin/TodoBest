@@ -35,7 +35,7 @@ const LoginForm = ({isAuthenticated, setIsAuthenticated}) => {
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    const [cookies, setCookie] = useCookies(['userName']);
+    const [cookies, setCookie] = useCookies(['userName', 'token']);
     let navigate = useNavigate();
 
     const timeout = (delay) => {
@@ -49,6 +49,7 @@ const LoginForm = ({isAuthenticated, setIsAuthenticated}) => {
             const response = await axios.post('http://localhost:3000/api/auth/signin', {username, password})
                 .then((response) => {
                     setCookie('userName', response.data.userName)
+                    setCookie('token', response.data.accessToken)
                 })
 
             // sessionStorage.setItem('accessToken', response.data.accessToken);
